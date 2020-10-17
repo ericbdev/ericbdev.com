@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import styles from './';
+import { colors } from './';
 
 const Grid = styled.div`
   display: grid;
@@ -36,13 +36,13 @@ const ColorValue = styled.span`
 `;
 
 const genColorScale = name =>
-  Object.keys(styles.colors[name]).map(k => ({
+  Object.keys(colors[name]).map(k => ({
     name: k,
-    color: styles.colors[name][k],
+    color: colors[name][k],
   }));
 
 const ColorScale = ({ scale }) => (
-  <Grid cols={scale.length}>
+  <Grid cols={Math.max(scale.length, 5)}>
     {scale.map(c => (
       <ColorItem key={c.name} name={c.name} color={c.color}>
         <ColorBlock color={c.color} />
@@ -56,7 +56,7 @@ const ColorScale = ({ scale }) => (
 );
 
 export const ColorSystem = () => {
-  const scales = ['blue', 'green', 'yellow', 'orange', 'red', 'neutral'];
+  const scales = ['blue', 'green', 'yellow', 'orange', 'red', 'neutral', 'secondary'];
 
   return (
     <Grid cols={1}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Routes from './Routes';
+import App from './App';
 import GlobalStyle from './GlobalStyle';
 
 function SiteRoot() {
@@ -7,7 +7,7 @@ function SiteRoot() {
     <>
       <GlobalStyle />
       <div id="site-root">
-        <Routes />
+        <App />
       </div>
     </>
   );

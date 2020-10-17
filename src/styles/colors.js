@@ -46,6 +46,11 @@ const neutral = {
   lightest: '#fff',
 };
 
+// used for weird things
+const secondary = {
+  base: '#1eb9c1',
+}
+
 const colors = {
   blue,
   green,
@@ -53,6 +58,7 @@ const colors = {
   orange,
   red,
   neutral,
+  secondary,
 };
 
 export default colors;
