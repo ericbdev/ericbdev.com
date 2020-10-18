@@ -1,5 +1,5 @@
 import normalize from 'styled-normalize';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components/macro';
 
 const GlobalStyle = createGlobalStyle`
   ${normalize};

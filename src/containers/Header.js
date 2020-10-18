@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { ReactComponent as Logo } from '../assets/logo-eric-bright.svg';
-import Button from '../components/Button';
+import Link from '../components/Link';
 
 import { colors, sizes, mixins } from '../styles';
 
@@ -32,7 +32,7 @@ const List = styled.ul`
   ${mixins.listReset};
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: center;
   margin-left: ${sizes.medium};
 `;
@@ -52,13 +52,13 @@ export default () => (
 
       <List>
         <ListItem>
-          <Button to="/">Home</Button>
+          <Link to="/">Home</Link>
         </ListItem>
         <ListItem>
-          <Button to="/about">About</Button>
+          <Link to="/about">About</Link>
         </ListItem>
         <ListItem>
-          <Button to="/findings-ideas">Findings & Ideas</Button>
+          <Link to="/findings-ideas">Findings & Ideas</Link>
         </ListItem>
       </List>
     </InnerWrapper>

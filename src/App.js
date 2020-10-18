@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 // No heavy containers
 import Header from './containers/Header';

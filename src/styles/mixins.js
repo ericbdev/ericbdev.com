@@ -1,4 +1,6 @@
-import { css } from 'styled-components';
+import { css } from 'styled-components/macro';
+
+import { colors } from './';
 
 const buttonReset = css`
   padding: 0;
@@ -14,7 +16,15 @@ const listReset = css`
   list-style: none;
 `;
 
+const linkStyles = css`
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: ${colors.secondary.base};
+`;
+
 export default {
   buttonReset,
+  linkStyles,
   listReset,
 };
