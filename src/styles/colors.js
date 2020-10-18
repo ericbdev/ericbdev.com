@@ -1,4 +1,4 @@
-// https://codepen.io/ericbdev/pen/RwNjwdK
+import { darken, lighten } from 'polished';
 
 const blue = {
   darker: '#004b6e',
@@ -41,15 +41,18 @@ const neutral = {
   darker: '#1b1c1d',
   dark: '#222425',
   base: '#3d4142',
-  light: '#4c4f52',
-  lighter: '#7e8486',
+  light: lighten(0.1, '#4c4f52'), // todo: codif
+  lighter: lighten(0.2, '#7e8486'), // todo: codify
   lightest: '#fff',
 };
 
 // used for weird things
 const secondary = {
+  dark: darken(0.1, '#1eb9c1'),
   base: '#1eb9c1',
-}
+  light: lighten(0.05, '#1eb9c1'),
+  lighter: lighten(0.2, '#1eb9c1'),
+};
 
 const colors = {
   blue,

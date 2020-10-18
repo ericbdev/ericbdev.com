@@ -1,91 +1,78 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { desaturate } from 'polished';
 import { Link } from 'react-router-dom';
 import { colors, mixins, sizes } from '../../styles';
 
 const common = css`
   ${mixins.buttonReset};
   padding: ${sizes.xSmall} ${sizes.small};
+  letter-spacing: 0.2px;
   color: currentColor;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
   border-color: transparent;
   border-radius: 4px;
   transition: all 0.1s linear;
 `;
 
-// todo: map in variants
-/**
- * primary - Primary
-secondary - Secondary
-success - Success
-warning - Warning
-danger - Danger
-info - Info
- */
-
-const styleMap = {
+const variantsMap = {
   primary: css`
-    background-color: ${colors.blue.base};
+    background-color: ${colors.blue.dark};
     color: ${colors.neutral.lightest};
 
     &:focus,
     &:active,
     &:hover {
-      background-color: ${colors.blue.dark};
-      color: ${colors.neutral.lightest};
+      border-color: ${desaturate(0.4, colors.blue.dark)};
+      background-color: ${desaturate(0.2, colors.blue.dark)};
     }
   `,
   secondary: css`
-    background-color: ${colors.secondary.base};
-    border-color: ${colors.secondary.base};
-    color: ${colors.neutral.lightest};
-
-    &:focus,
-    &:active,
-    &:hover {
-      border-color: ${colors.neutral.dark};
-    }
-  `,
-  success: css`
-    background-color: ${colors.green.base};
+    background-color: ${colors.secondary.lighter};
     color: ${colors.neutral.darker};
 
     &:focus,
     &:active,
     &:hover {
-      background-color: ${colors.green.dark};
-      color: ${colors.neutral.darker};
+      background-color: ${desaturate(0.3, colors.secondary.lighter)};
+    }
+  `,
+  info: css`
+    background-color: ${colors.neutral.lighter};
+    color: ${colors.neutral.dark};
+
+    &:focus,
+    &:active,
+    &:hover {
+      border-color: ${colors.neutral.light};
+    }
+  `,
+  success: css`
+    background-color: ${colors.green.dark};
+    color: ${colors.neutral.darker};
+
+    &:focus,
+    &:active,
+    &:hover {
+      background-color: ${desaturate(0.1, colors.green.dark)};
     }
   `,
   danger: css`
-    background-color: ${colors.blue.base};
+    background-color: ${colors.red.dark};
     color: ${colors.neutral.lightest};
 
     &:focus,
     &:active,
     &:hover {
-      background-color: ${colors.blue.dark};
-      color: ${colors.neutral.lighter};
-    }
-  `,
-  info: css`
-    background-color: ${colors.neutral.lightest};
-    color: ${colors.neutral.dark};
-    border-color: ${colors.neutral.darker};
-
-    &:focus,
-    &:active,
-    &:hover {
-      background-color: ${colors.neutral.lightest};
-      border-color: ${colors.neutral.darkest};
+      background-color: ${desaturate(0.1, colors.red.dark)};
     }
   `,
 };
 
 const variants = p => css`
-  ${styleMap[p?.variant]}
+  ${variantsMap[p?.variant]}
 `;
 
 // todo: this looks kinda hacky and silly
@@ -98,7 +85,7 @@ const LinkComponent = styled(Link)`
   ${variants};
 `;
 
-const Button = ({ to, variant = 'info', ...props }) => {
+const Button = ({ to, variant = 'primary', ...props }) => {
   const nextProps = { variant, ...props };
   if (!to) return <Component {...nextProps} />;
   if (to) return <LinkComponent {...nextProps} to={to} />;
