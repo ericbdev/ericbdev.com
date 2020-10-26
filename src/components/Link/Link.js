@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components/macro';
 import { Link as RouterLink } from 'react-router-dom';
-import { mixins } from '../../styles';
+import mixins from '../../styles/mixins';
 
 const common = css`
   ${mixins.linkStyles};

@@ -1,6 +1,8 @@
 import normalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components/macro';
 
+import typography from './styles/typography';
+
 const GlobalStyle = createGlobalStyle`
   ${normalize};
 
@@ -15,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: ${typography.font.families.body};
     margin: 0;
     padding: 0;
   }

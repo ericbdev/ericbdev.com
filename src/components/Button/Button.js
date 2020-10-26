@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components/macro';
-import { desaturate } from 'polished';
 import { Link } from 'react-router-dom';
-import { colors, mixins, sizes } from '../../styles';
+import {  mixins, sizes, typography } from '../../styles';
 
 const common = css`
   ${mixins.buttonReset};
@@ -19,54 +18,48 @@ const common = css`
 
 const variantsMap = {
   primary: css`
-    background-color: ${colors.blue.dark};
-    color: ${colors.neutral.lightest};
+    ${typography.buttons.primary.initial};
 
     &:focus,
     &:active,
     &:hover {
-      border-color: ${desaturate(0.4, colors.blue.dark)};
-      background-color: ${desaturate(0.2, colors.blue.dark)};
+      ${typography.buttons.primary.initial};
     }
   `,
   secondary: css`
-    background-color: ${colors.secondary.lighter};
-    color: ${colors.neutral.darker};
+    ${typography.buttons.secondary.initial};
 
     &:focus,
     &:active,
     &:hover {
-      background-color: ${desaturate(0.3, colors.secondary.lighter)};
+      ${typography.buttons.secondary.active};
     }
   `,
   info: css`
-    background-color: ${colors.neutral.lighter};
-    color: ${colors.neutral.dark};
+    ${typography.buttons.info.initial};
 
     &:focus,
     &:active,
     &:hover {
-      border-color: ${colors.neutral.light};
+      ${typography.buttons.info.active};
     }
   `,
   success: css`
-    background-color: ${colors.green.dark};
-    color: ${colors.neutral.darker};
+    ${typography.buttons.success.initial};
 
     &:focus,
     &:active,
     &:hover {
-      background-color: ${desaturate(0.1, colors.green.dark)};
+      ${typography.buttons.success.active};
     }
   `,
   danger: css`
-    background-color: ${colors.red.dark};
-    color: ${colors.neutral.lightest};
+    ${typography.buttons.danger.initial};
 
     &:focus,
     &:active,
     &:hover {
-      background-color: ${desaturate(0.1, colors.red.dark)};
+      ${typography.buttons.danger.active};
     }
   `,
 };

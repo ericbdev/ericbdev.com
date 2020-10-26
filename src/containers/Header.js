@@ -3,7 +3,9 @@ import styled from 'styled-components/macro';
 import { ReactComponent as Logo } from '../assets/logo-eric-bright.svg';
 import Link from '../components/Link';
 
-import { colors, sizes, mixins } from '../styles';
+import colors from '../styles/colors';
+import sizes from '../styles/sizes';
+import mixins from '../styles/mixins';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,11 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.nav`
-  max-width: 1024px;
-  width: 100%;
-  display: flex;
-  margin-right: auto;
-  margin-left: auto;
+  ${mixins.layoutOuter};
 `;
 
 const StyledLogo = styled(Logo)`
@@ -34,7 +32,7 @@ const List = styled.ul`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  margin-left: ${sizes.medium};
+  margin-left: auto;
 `;
 
 const ListItem = styled.li`
