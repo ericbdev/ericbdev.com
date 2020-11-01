@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { ReactComponent as Logo } from '../assets/logo-eric-bright.svg';
+import { ReactComponent as Logo } from '../assets/logo-bdev.svg';
 import Link from '../components/Link';
 
 import colors from '../styles/colors';
@@ -9,19 +9,23 @@ import mixins from '../styles/mixins';
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: ${sizes.regular} ${sizes.medium};
+  padding: ${sizes.small} 0;
 `;
 
 const InnerWrapper = styled.nav`
   ${mixins.layoutOuter};
+  align-items: center;
 `;
 
 const StyledLogo = styled(Logo)`
-  color: ${colors.neutral.darker};
-  width: ${394 / 2}px;
-  height: ${188 / 2}px;
+  width: ${210 / 2}px;
+  height: ${119 / 2}px;
+`;
 
-  .logo-letter-alt {
+const StyledLink = styled(Link)`
+  color: ${colors.neutral.darker};
+
+  &:hover {
     color: ${colors.secondary.base};
   }
 `;
@@ -46,7 +50,9 @@ const ListItem = styled.li`
 export default () => (
   <Wrapper>
     <InnerWrapper>
-      <StyledLogo />
+      <StyledLink to="/">
+        <StyledLogo />
+      </StyledLink>
 
       <List>
         <ListItem>
