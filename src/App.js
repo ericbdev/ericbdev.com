@@ -3,31 +3,36 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
 // No heavy containers
-import mixins from './styles/mixins';
-
-// No heavy containers
 import Header from './containers/Header';
 
 // Lazy load routes
 const Home = lazy(() => import('./routes/Home'));
 const FindingsIdeas = lazy(() => import('./routes/FindingsIdeas'));
 
-const Main = styled.main`
-  ${mixins.layoutOuter};
-`;
+const MainLayout = styled.main``;
+
+const Main = ({ children }) => (
+  <>
+    <Header />
+    <MainLayout id="site-main">{children}</MainLayout>
+  </>
+);
 
 // todo: put Header/masthead here
 //
-export default () => (
-  <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Header />
-      <Main id="site-main">
+const App = props => {
+  return (
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/findings-ideas" component={FindingsIdeas} />
+          <Main>
+            <Route exact path="/" component={Home} />
+            <Route path="/findings-ideas" component={FindingsIdeas} />
+          </Main>
         </Switch>
-      </Main>
-    </Suspense>
-  </Router>
-);
+      </Suspense>
+    </Router>
+  );
+};
+
+export default App;

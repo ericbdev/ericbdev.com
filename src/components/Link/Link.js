@@ -21,7 +21,7 @@ const Link = ({ to, ...props }) => {
   if (to) return <LinkComponent {...props} to={to} />;
 };
 
-Link.PropTypes = {
+Link.propTypes = {
   // make it route
   to: PropTypes.string,
 };
