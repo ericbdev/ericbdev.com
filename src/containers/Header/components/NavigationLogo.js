@@ -16,19 +16,23 @@ const LinkedLogo = styled(Link)`
   }
 `;
 
-const NavigationLogo = ({ visuallyHidden }) => {
-  const history = useHistory();
+const NavigationLogo = React.forwardRef(
+  ({ style, className, visuallyHidden }, ref) => {
+    const history = useHistory();
+    const props = {
+      onClick: () => history.push('/').className,
+      className,
+      style,
+      ref,
+      visuallyHidden,
+    };
 
-  return (
-    <LinkedLogo
-      visuallyHidden={visuallyHidden}
-      onClick={() => {
-        history.push('/');
-      }}
-    >
-      <HeaderLogo />
-    </LinkedLogo>
-  );
-};
+    return (
+      <LinkedLogo {...props}>
+        <HeaderLogo />
+      </LinkedLogo>
+    );
+  },
+);
 
 export default NavigationLogo;

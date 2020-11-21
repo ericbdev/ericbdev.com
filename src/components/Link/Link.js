@@ -16,10 +16,10 @@ const LinkComponent = styled(RouterLink)`
   ${common};
 `;
 
-const Link = ({ to, ...props }) => {
-  if (!to) return <Component {...props} />;
-  if (to) return <LinkComponent {...props} to={to} />;
-};
+const Link = React.forwardRef(({ to, ...props }, ref) => {
+  if (!to) return <Component {...props} ref={ref} />;
+  if (to) return <LinkComponent {...props} to={to} ref={ref} />;
+});
 
 Link.propTypes = {
   // make it route
