@@ -2,12 +2,16 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { useLocation } from 'react-router-dom';
 
+import { SELECTORS_HEADER } from '../../config/domSelectors';
 import Link from '../../components/Link';
 
-import sizes from '../../styles/sizes';
+import layers from '../../styles/layers';
 import mixins from '../../styles/mixins';
+import sizes from '../../styles/sizes';
 
 import NavigationLogo from './components/NavigationLogo';
+
+const NavigationLogoStyled = styled(NavigationLogo)``;
 
 const Wrapper = styled.div`
   position: sticky;
@@ -15,13 +19,21 @@ const Wrapper = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: ${layers.header};
   width: 100%;
   padding: ${sizes.small} 0;
 `;
 
+// layout z-index scope for ${NavigationLogo}
 const InnerWrapper = styled.nav`
   ${mixins.layoutOuter};
   align-items: center;
+  position: relative;
+
+  ${NavigationLogoStyled} {
+    top: 0;
+    left: ${sizes.small};
+  }
 `;
 
 const List = styled.ul`
@@ -45,10 +57,15 @@ const Header = () => {
   const location = useLocation();
   const isIndex = location?.pathname === '/';
 
+  const navLogoProps = {
+    visuallyHidden: isIndex,
+    [SELECTORS_HEADER.NAV_LOGO]: true,
+  };
+
   return (
     <Wrapper>
       <InnerWrapper>
-        <NavigationLogo visuallyHidden={isIndex} />
+        <NavigationLogoStyled {...navLogoProps} />
         <List>
           <ListItem>
             <Link to="/">Home</Link>

@@ -1,13 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import HeaderLogo from './HeaderLogo';
-
 import styled from 'styled-components/macro';
-import Link from '../../../components/Link';
+
 import mixins from '../../../styles/mixins';
 import colors from '../../../styles/colors';
 
-const LinkedLogo = styled(Link)`
+import HeaderLogo from './HeaderLogo';
+import Link from '../../../components/Link';
+
+const Wrapper = styled(Link)`
   color: ${colors.neutral.darker};
   ${p => p.visuallyHidden && mixins.visuallyHidden};
 
@@ -17,20 +18,21 @@ const LinkedLogo = styled(Link)`
 `;
 
 const NavigationLogo = React.forwardRef(
-  ({ style, className, visuallyHidden }, ref) => {
+  ({ style, className, visuallyHidden, ...rest }, ref) => {
     const history = useHistory();
     const props = {
-      onClick: () => history.push('/').className,
+      onClick: () => history.push('/'),
       className,
       style,
       ref,
       visuallyHidden,
+      ...rest,
     };
 
     return (
-      <LinkedLogo {...props}>
+      <Wrapper {...props}>
         <HeaderLogo />
-      </LinkedLogo>
+      </Wrapper>
     );
   },
 );
