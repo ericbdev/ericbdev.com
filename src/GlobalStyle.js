@@ -1,6 +1,8 @@
 import normalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components/macro';
 
+import { SELECTORS_MAIN } from './config/domSelectors';
+
 import typography from './styles/typography';
 
 const GlobalStyle = createGlobalStyle`
@@ -25,6 +27,8 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  #${SELECTORS_MAIN.ROOT} { position: relative; }
 `;
 
 export default GlobalStyle;

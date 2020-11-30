@@ -12,7 +12,7 @@ import Header from './containers/Header';
 const Home = lazy(() => import('./routes/Home'));
 const FindingsIdeas = lazy(() => import('./routes/FindingsIdeas'));
 
-const MainLayout = styled.main`
+const Layout = styled.main`
   position: relative;
   z-index: ${layers.main};
   height: 100%;
@@ -22,7 +22,7 @@ const MainLayout = styled.main`
 const Main = ({ children }) => (
   <>
     <Header />
-    <MainLayout id={SELECTORS_MAIN.MAIN}>{children}</MainLayout>
+    <Layout id={SELECTORS_MAIN.MAIN}>{children}</Layout>
   </>
 );
 

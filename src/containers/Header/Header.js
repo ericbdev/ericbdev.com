@@ -8,6 +8,7 @@ import Link from '../../components/Link';
 import layers from '../../styles/layers';
 import mixins from '../../styles/mixins';
 import sizes from '../../styles/sizes';
+import colors from '../../styles/colors';
 
 import NavigationLogo from './components/NavigationLogo';
 
@@ -22,6 +23,7 @@ const Wrapper = styled.div`
   z-index: ${layers.header};
   width: 100%;
   padding: ${sizes.small} 0;
+  background-color: ${colors.neutral.lightest}
 `;
 
 // layout z-index scope for ${NavigationLogo}

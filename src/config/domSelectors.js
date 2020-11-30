@@ -7,6 +7,9 @@ export const SELECTORS_HEADER = {
 
 // body
 export const SELECTORS_MAIN = {
+  ROOT: 'root',
+  SITE_ROOT: 'root__site',
+  SITE_PORTAL: 'root__portal',
   MAIN: 'site-main'
 }
 

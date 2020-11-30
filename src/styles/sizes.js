@@ -13,6 +13,8 @@ const sizesNamed = {
   large: `${sizesArr[6]}px`, // 64
   xLarge: `${sizesArr[7]}px`, // 128
   xxLarge: `${sizesArr[8]}px`, // 256
-}
+};
+
+export const sum = args => args.reduce((a, b) => a + b, []);
 
 export default sizesNamed;
