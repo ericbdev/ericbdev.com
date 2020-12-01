@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import mixins from '../../../styles/mixins';
 import colors from '../../../styles/colors';
 
-import HeaderLogo from './HeaderLogo';
+import { LogoShort, LogoFull } from './HeaderLogo';
 import Link from '../../../components/Link';
 
 const Wrapper = styled(Link)`
@@ -18,7 +18,7 @@ const Wrapper = styled(Link)`
 `;
 
 const NavigationLogo = React.forwardRef(
-  ({ style, className, visuallyHidden, ...rest }, ref) => {
+  ({ style, className, visuallyHidden, logoSize = 'short', ...rest }, ref) => {
     const history = useHistory();
     const props = {
       onClick: () => history.push('/'),
@@ -31,7 +31,8 @@ const NavigationLogo = React.forwardRef(
 
     return (
       <Wrapper {...props}>
-        <HeaderLogo />
+        {logoSize === 'short' && <LogoShort />}
+        {logoSize === 'full' && <LogoFull />}
       </Wrapper>
     );
   },

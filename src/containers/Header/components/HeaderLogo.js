@@ -1,12 +1,13 @@
 import styled from 'styled-components/macro';
 import { ReactComponent as LogoSvg } from '../../../assets/logo-bdev.svg';
+import { ReactComponent as LogoFullSvg } from '../../../assets/logo-ericbdev.svg';
 
-// todo: this probably isnt that smart
-// todo: we want to use full with at some pont
-// todo: make this global sizing
-const HeaderLogo = styled(LogoSvg)`
-  width: ${214 / 2}px;
+export const LogoShort = styled(LogoSvg)`
+  width: ${212 / 2}px;
   height: ${120 / 2}px;
 `;
 
-export default HeaderLogo;
+export const LogoFull = styled(LogoFullSvg)`
+  width: ${370 / 2}px;
+  height: ${120 / 2}px;
+`;
