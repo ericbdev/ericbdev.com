@@ -136,7 +136,7 @@ const AnimatedLogo = ({ children }) => {
     const pageLogoEl = document.querySelector(`[${SELECTORS_HEADER.NAV_LOGO}]`);
     const { x, y, height, width } = getRectangle(pageLogoEl);
     setDestination({ x, y, height, width });
-  }, []);
+  }, [winSize]);
 
   // scroll monitoring
   useScrollPosition(
