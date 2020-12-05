@@ -5,27 +5,17 @@ import App from './App';
 import GlobalStyle from './GlobalStyle';
 import { SELECTORS_MAIN } from './config/domSelectors';
 
-const Wrapper = styled.div`
-  position: relative;
-  z-index: 100;
-`;
-
-const PortalWrapper = styled(Wrapper)`
-  position: absolute;
-  z-index: 200;
-  top: 0;
-`;
+const Wrapper = styled.div``;
+const PortalWrapper = styled(Wrapper)``;
 
 function SiteRoot() {
   return (
     <>
       <GlobalStyle />
-      <Wrapper id={SELECTORS_MAIN.SITE_ROOT} zIndex={100}>
+      <Wrapper id={SELECTORS_MAIN.SITE_ROOT}>
         <App />
       </Wrapper>
-      <PortalWrapper
-        id={SELECTORS_MAIN.SITE_PORTAL}
-      />
+      <PortalWrapper id={SELECTORS_MAIN.SITE_PORTAL} />
     </>
   );
 }

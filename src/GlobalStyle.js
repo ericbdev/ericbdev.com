@@ -28,7 +28,9 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  #${SELECTORS_MAIN.ROOT} { position: relative; }
+  #${SELECTORS_MAIN.ROOT} { position: relative; z-index: 100; }
+  #${SELECTORS_MAIN.SITE_ROOT} { position: relative; z-index: 100; }
+  #${SELECTORS_MAIN.SITE_PORTAL} { position: absolute; top: 0; z-index: 200; }
 `;
 
 export default GlobalStyle;

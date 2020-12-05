@@ -10,9 +10,20 @@ import mixins from '../../styles/mixins';
 import sizes from '../../styles/sizes';
 import colors from '../../styles/colors';
 
-import NavigationLogo from './components/NavigationLogo';
+import { LOGO_SIZES } from '../../components/Logo/LogoSvg';
+import Logo from '../../components/Logo/NavigationLogo';
 
-const NavigationLogoStyled = styled(NavigationLogo)``;
+const LogoStyled = styled(Logo)`
+  ${p =>
+    p.visuallyHidden &&
+    `
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: ${sizes.small};
+    height: ${LOGO_SIZES.short.height}px;
+  `}
+`;
 
 const Wrapper = styled.div`
   position: sticky;
@@ -23,19 +34,14 @@ const Wrapper = styled.div`
   z-index: ${layers.header};
   width: 100%;
   padding: ${sizes.small} 0;
-  background-color: ${colors.neutral.lightest}
+  background-color: ${colors.neutral.lightest};
 `;
 
-// layout z-index scope for ${NavigationLogo}
+// layout z-index scope for ${Logo}
 const InnerWrapper = styled.nav`
   ${mixins.layoutOuter};
   align-items: center;
   position: relative;
-
-  ${NavigationLogoStyled} {
-    top: 0;
-    left: ${sizes.small};
-  }
 `;
 
 const List = styled.ul`
@@ -67,7 +73,7 @@ const Header = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        <NavigationLogoStyled {...navLogoProps} />
+        <LogoStyled {...navLogoProps} />
         <List>
           <ListItem>
             <Link to="/">Home</Link>

@@ -12,64 +12,24 @@
  *
  */
 
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useState, useMemo, useRef } from 'react';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { mix } from 'polished';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import { SELECTORS_HEADER } from '../../config/domSelectors';
-import colors from '../../styles/colors';
 import useWindowSize from '../../hooks/useWindowSize';
-import NavigationLogo from '../../containers/Header/components/NavigationLogo';
 
 import Portal from '../Portal';
+import { LOGO_SIZES } from '../Logo/LogoSvg';
+import { LogoStyled } from './LogoStyled';
 
-// todo: gtfo
-const HEADER_HEIGHT = 90;
+// todo: attach to theme vars for height
+const HEADER_HEIGHT = LOGO_SIZES.short.height / 2 + 16 + 16;
 
 const getRectangle = element => element?.getBoundingClientRect() || {};
 const getScrollPercentage = (y, height) =>
   Math.min(1, (y + HEADER_HEIGHT) / height);
 const getTrxDelta = (a1, a2, pct) => a1 - (a1 - a2) * pct;
-
-const LogoStyled = styled(NavigationLogo).attrs(({ dX, dY, pct }) => ({
-  className: pct > 0.3 && 'logo--short',
-  style: {
-    transform: `translate3d(${dX}px, ${dY}px, 0)`,
-    color: mix(pct, colors.secondary.base, colors.neutral.darkest),
-  },
-}))`
-  position: fixed;
-  z-index: 100;
-  transition: transform 0.3s ease;
-  will-change: transform;
-  
-  path {
-    transform-origin: 50% 50%;
-    transition: all 0.3s ease;
-  }
-
-  &.logo--short {
-    .logo--letter-1,
-    .logo--letter-2,
-    .logo--letter-3,
-    .logo--letter-4 {
-      transform: translateX(40px);
-      opacity: 0;
-    }
-
-    .logo--letter-5,
-    .logo--letter-6,
-    .logo--letter-7,
-    .logo--letter-8 {
-      transform: translateX(-158px);
-    }
-  }
-
-  &:hover {
-    color: currentColor;
-  }
-`;
 
 const ViewPort = styled.div`
   position: relative;
@@ -83,8 +43,8 @@ const ViewPort = styled.div`
 
 // raster based sizings
 const initParams = {
-  x: window?.innerWidth / 2 - 370 / 4 || 0,
-  y: window?.innerHeight / 2 - 120 / 4,
+  x: window?.innerWidth / 2 - LOGO_SIZES.full.width / 4 || 0,
+  y: window?.innerHeight / 2 - LOGO_SIZES.full.height / 4,
   pct: 0,
 };
 // ack but also will be a typ
@@ -122,21 +82,33 @@ const AnimatedLogo = ({ children }) => {
     return setLogoParams({ x, y, pct });
   };
 
-  // on initial load / resize
-  useEffect(() => {
+  console.log({ destination });
+
+  useLayoutEffect(() => {
     const y =
       document.documentElement.scrollTop || document.body.scrollTop || 0;
     handleTranslate({ ...initParams.currPos, y });
-    // todo: this is smelly
+
     // eslint-disable-next-line
   }, []);
 
   // initial positioning
-  useEffect(() => {
+  useLayoutEffect(() => {
     const pageLogoEl = document.querySelector(`[${SELECTORS_HEADER.NAV_LOGO}]`);
+
+    console.log({pageLogoEl})
     const { x, y, height, width } = getRectangle(pageLogoEl);
     setDestination({ x, y, height, width });
   }, [winSize]);
+
+  // // on initial load / resize
+  // useEffect(() => {
+  //   const y =
+  //     document.documentElement.scrollTop || document.body.scrollTop || 0;
+  //   handleTranslate({ ...initParams.currPos, y });
+  //   // todo: this is smelly
+  //   // eslint-disable-next-line
+  // }, []);
 
   // scroll monitoring
   useScrollPosition(
