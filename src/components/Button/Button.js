@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
-import {  mixins, sizes, typography } from '../../styles';
+import mixins from '../../styles/mixins';
+import sizes from '../../styles/sizes';
+import typography from '../../styles/typography';
 
 const common = css`
   ${mixins.buttonReset};
@@ -68,7 +70,6 @@ const variants = p => css`
   ${variantsMap[p?.variant]}
 `;
 
-// todo: this looks kinda hacky and silly
 const Component = styled.button`
   ${common};
   ${variants};
@@ -84,7 +85,7 @@ const Button = ({ to, variant = 'primary', ...props }) => {
   if (to) return <LinkComponent {...nextProps} to={to} />;
 };
 
-Button.PropTypes = {
+Button.propTypes = {
   // make it route
   to: PropTypes.string,
   // control base style

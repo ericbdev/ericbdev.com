@@ -17,6 +17,8 @@ const LinkComponent = styled(RouterLink)`
 `;
 
 const Link = React.forwardRef(({ to, ...props }, ref) => {
+  if (props.href)
+    return <Component {...props} href={props.href} target="_blank" ref={ref} />;
   if (!to) return <Component {...props} ref={ref} />;
   if (to) return <LinkComponent {...props} to={to} ref={ref} />;
 });

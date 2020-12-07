@@ -48,6 +48,7 @@ const layoutOuter = css`
   padding-left: ${sizes.small};
   margin-right: auto;
   margin-left: auto;
+  ${p => p.layoutStyle === 'content' && `max-width: 38rem;`}
 `;
 
 const mixins = {

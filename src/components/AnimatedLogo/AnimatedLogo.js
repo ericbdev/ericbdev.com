@@ -12,19 +12,31 @@
  *
  */
 
-import React, { useLayoutEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 // import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import { SELECTORS_HEADER } from '../../config/domSelectors';
 import useWindowSize from '../../hooks/useWindowSize';
+
+import { HEADER_HEIGHT } from '../../containers/Header/Header';
 
 import Portal from '../Portal';
 import { LOGO_SIZES } from '../Logo/LogoSvg';
 import { LogoStyled } from './LogoStyled';
 
-// todo: attach to theme vars for height
-const HEADER_HEIGHT = LOGO_SIZES.short.height / 2 + 16 + 16;
+// raster based sizings
+const initParams = {
+  x: window?.innerWidth / 2 - LOGO_SIZES.full.width / 4 || 0,
+  y: window?.innerHeight / 2 - LOGO_SIZES.full.height / 4,
+  pct: 0,
+};
+
+// ack but also will be a typ
+const initPos = {
+  prevPos: { y: 0, x: 0 },
+  currPos: { y: 0, x: 0 },
+};
 
 const getRectangle = element => element?.getBoundingClientRect() || {};
 const getScrollPercentage = (y, height) =>
@@ -34,29 +46,13 @@ const getTrxDelta = (a1, a2, pct) => a1 - (a1 - a2) * pct;
 const ViewPort = styled.div`
   position: relative;
   width: 100%;
-  height: ${p => p.height || '200vh'};
-
-  & ~ & {
-    height: unset;
-  }
+  height: ${p => p.$height || '100vh'};
 `;
 
-// raster based sizings
-const initParams = {
-  x: window?.innerWidth / 2 - LOGO_SIZES.full.width / 4 || 0,
-  y: window?.innerHeight / 2 - LOGO_SIZES.full.height / 4,
-  pct: 0,
-};
-// ack but also will be a typ
-const initPos = {
-  prevPos: { y: 0, x: 0 },
-  currPos: { y: 0, x: 0 },
-};
-
-const AnimatedLogo = ({ children }) => {
+const AnimatedLogo = ({ children, $height }) => {
   const winSize = useWindowSize();
-  const scrollBounds = useRef(null);
   const logoRef = useRef(null);
+  const scrollBounds = useRef(null);
   const [destination, setDestination] = useState();
   const [logoParams, setLogoParams] = useState(initParams);
 
@@ -79,12 +75,12 @@ const AnimatedLogo = ({ children }) => {
     const x = getTrxDelta(src.x, destination.x, pct);
     const y = getTrxDelta(src.y, destination.y, pct);
 
-    return setLogoParams({ x, y, pct });
+    const p = { x, y, pct };
+
+    return setLogoParams(p);
   };
 
-  console.log({ destination });
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     const y =
       document.documentElement.scrollTop || document.body.scrollTop || 0;
     handleTranslate({ ...initParams.currPos, y });
@@ -93,22 +89,12 @@ const AnimatedLogo = ({ children }) => {
   }, []);
 
   // initial positioning
-  useLayoutEffect(() => {
+  useEffect(() => {
     const pageLogoEl = document.querySelector(`[${SELECTORS_HEADER.NAV_LOGO}]`);
 
-    console.log({pageLogoEl})
     const { x, y, height, width } = getRectangle(pageLogoEl);
     setDestination({ x, y, height, width });
   }, [winSize]);
-
-  // // on initial load / resize
-  // useEffect(() => {
-  //   const y =
-  //     document.documentElement.scrollTop || document.body.scrollTop || 0;
-  //   handleTranslate({ ...initParams.currPos, y });
-  //   // todo: this is smelly
-  //   // eslint-disable-next-line
-  // }, []);
 
   // scroll monitoring
   useScrollPosition(
@@ -120,20 +106,18 @@ const AnimatedLogo = ({ children }) => {
   );
 
   return (
-    <>
-      <ViewPort ref={scrollBounds} height={'300vh'}>
-        <Portal>
-          <LogoStyled
-            ref={logoRef}
-            dX={logoParams.x}
-            dY={logoParams.y}
-            pct={logoParams.pct}
-            logoSize={'full'}
-          />
-        </Portal>
-      </ViewPort>
-      <ViewPort>{children}</ViewPort>
-    </>
+    <ViewPort $height={$height} ref={scrollBounds}>
+      <Portal>
+        <LogoStyled
+          ref={logoRef}
+          dX={logoParams.x}
+          dY={logoParams.y}
+          pct={logoParams.pct}
+          logoSize={'full'}
+        />
+      </Portal>
+      {children({ scrollParams: logoParams })}
+    </ViewPort>
   );
 };
 

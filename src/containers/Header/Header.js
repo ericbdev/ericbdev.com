@@ -11,18 +11,19 @@ import sizes from '../../styles/sizes';
 import colors from '../../styles/colors';
 
 import { LOGO_SIZES } from '../../components/Logo/LogoSvg';
-import Logo from '../../components/Logo/NavigationLogo';
+import LogoLinked from '../../components/Logo/NavigationLogo';
 
-const LogoStyled = styled(Logo)`
+export const HEADER_HEIGHT = LOGO_SIZES.short.height / 2 + 16 + 16;
+
+const LogoStyled = styled(LogoLinked)`
   ${p =>
     p.visuallyHidden &&
     `
-    position: relative;
-    top: 0;
-    bottom: 0;
-    left: ${sizes.small};
-    height: ${LOGO_SIZES.short.height}px;
-  `}
+   position: relative;
+   top: 0;
+   bottom: 0;
+   height: ${LOGO_SIZES.short.height / 2}px;
+ `}
 `;
 
 const Wrapper = styled.div`
@@ -40,16 +41,17 @@ const Wrapper = styled.div`
 // layout z-index scope for ${Logo}
 const InnerWrapper = styled.nav`
   ${mixins.layoutOuter};
-  align-items: center;
+  align-items: flex-end;
   position: relative;
 `;
 
-const List = styled.ul`
+const List = styled.ul.attrs({ role: 'menubar' })`
   ${mixins.listReset};
+  height: ${LOGO_SIZES.short.height / 2}px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-end;
   margin-left: auto;
 `;
 
@@ -59,6 +61,11 @@ const ListItem = styled.li`
   &:first-child {
     margin-top: 0;
   }
+`;
+
+const ListItemSeparator = styled.li.attrs({ role: 'separator' })`
+  margin-right: ${sizes.small};
+  margin-left: ${sizes.small};
 `;
 
 const Header = () => {
@@ -76,10 +83,15 @@ const Header = () => {
         <LogoStyled {...navLogoProps} />
         <List>
           <ListItem>
-            <Link to="/">Home</Link>
+            <Link to="/" role="menu-item">
+              Home
+            </Link>
           </ListItem>
+          <ListItemSeparator>/</ListItemSeparator>
           <ListItem>
-            <Link to="/findings-ideas">Findings & Ideas</Link>
+            <Link to="/findings-ideas" role="menu-item">
+              Findings & Ideas
+            </Link>
           </ListItem>
         </List>
       </InnerWrapper>
