@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { mix } from 'polished';
-import colors from '../../styles/colors';
-import Logo from '../Logo/NavigationLogo';
+import colors from '../../../styles/colors';
+import Logo from '../../../components/Logo/NavigationLogo';
 
-export const LogoStyled = styled(Logo).attrs(({ dX, dY, pct }) => ({
+const LogoStyled = styled(Logo).attrs(({ dX, dY, pct }) => ({
   className: pct > 0.5 && 'logo--short',
   style: {
     transform: `translate3d(${dX}px, ${dY}px, 0)`,
@@ -40,3 +40,5 @@ export const LogoStyled = styled(Logo).attrs(({ dX, dY, pct }) => ({
     color: currentColor;
   }
 `;
+
+export default LogoStyled;

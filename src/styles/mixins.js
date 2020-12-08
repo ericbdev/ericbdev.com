@@ -24,6 +24,7 @@ const linkStyles = css`
   font-family: ${typography.font.families.link};
   font-weight: ${typography.font.weights.link};
   color: ${colors.secondary.base};
+  transition: color 0.3s ease;
 
   &:hover {
     color: ${colors.secondary.dark};
