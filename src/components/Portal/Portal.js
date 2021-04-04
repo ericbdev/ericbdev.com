@@ -5,10 +5,7 @@ import { createPortal } from 'react-dom';
 
 import { SELECTORS_MAIN } from '../../config/domSelectors';
 
-const Portal = ({ children }) => {
-  const mount = document.getElementById(SELECTORS_MAIN.SITE_PORTAL);
-
-  return createPortal(children, mount);
-};
+const mount = document.getElementById(SELECTORS_MAIN.SITE_PORTAL);
+const Portal = ({ children }) => createPortal(children, mount);
 
 export default Portal;

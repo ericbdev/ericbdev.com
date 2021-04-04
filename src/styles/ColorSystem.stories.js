@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { colors } from './';
+import colors from './colors';
 
 const Grid = styled.div`
   display: grid;

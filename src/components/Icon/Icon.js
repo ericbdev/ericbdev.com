@@ -1,34 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import IconLoader from './IconLoader';
+import { ErrorBoundary } from 'react-error-boundary';
 
-// todo: add warning not to be dumb about icons not existing
-// todo: or catch error boundary or something
-const Icon = ({ name, ...rest }) => {
-  const ImportedIconRef = useRef(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const importIcon = async () => {
-      try {
-        const svgComponent = await import(
-          `!!@svgr/webpack?-svgo,+titleProp,+ref!./svgs/${name}.svg`
-        );
-        ImportedIconRef.current = svgComponent?.default;
-      } catch (error) {
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    };
-    importIcon();
-  }, [name]);
-
-  if (!loading && ImportedIconRef.current) {
-    const { current: ImportedIcon } = ImportedIconRef;
-    return <ImportedIcon {...rest} />;
-  }
-
-  return null;
+const Icon = ({ name, size }) => {
+  return (
+    <div>
+      <ErrorBoundary>
+        <IconLoader name={name} size={size} />
+      </ErrorBoundary>
+    </div>
+  );
 };
 
 export default Icon;
