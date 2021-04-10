@@ -1,51 +1,46 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 
-const IconLoader = ({ name, size = 'initial', ...rest }) => {
+const IconLoader = ({ name, size = 'initial', title, ...rest }) => {
   const ImportedIconRef = useRef(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    const importIcon = async () => {
+    (async () => {
       try {
+        // https://react-svgr.com/docs/options/
         const [named, at12, at16, at24] = await Promise.allSettled([
-          import(`!!@svgr/webpack?-svgo,+titleProp,+ref!./svgs/${name}.svg`),
-          import(`!!@svgr/webpack?-svgo,+titleProp,+ref!./svgs/${name}-12.svg`),
-          import(`!!@svgr/webpack?-svgo,+titleProp,+ref!./svgs/${name}-16.svg`),
-          import(`!!@svgr/webpack?-svgo,+titleProp,+ref!./svgs/${name}-24.svg`),
-        ])
-          .then(values =>
-            values.map(v => (v.status === 'fulfilled' ? v : null)),
-          )
-          .catch(error => {
-            // all good man
-            console.log(error);
-          });
+          import(`!!@svgr/webpack?-svgo,+memo,+titleProp,+ref!./svgs/${name}.svg`),
+          import(`!!@svgr/webpack?-svgo,+memo,+titleProp,+ref!./svgs/${name}-12.svg`),
+          import(`!!@svgr/webpack?-svgo,+memo,+titleProp,+ref!./svgs/${name}-16.svg`),
+          import(`!!@svgr/webpack?-svgo,+memo,+titleProp,+ref!./svgs/${name}-24.svg`),
+        ]).then(values =>
+          values.map(v => (v.status === 'fulfilled' ? v : null)),
+        );
 
         const weighted = {
           initial: named,
-          12: at12 || at24 || at16 || named,
+          12: at12 || at16 || at24 || named,
           16: at16 || at24 || named || at12,
           24: at24 || named || at16 || at12,
         };
 
-        ImportedIconRef.current = weighted?.[size]?.value?.default;
+        ImportedIconRef.current =
+          weighted?.[size]?.value?.default || weighted.initial?.value?.default;
       } catch (error) {
-        console.log('error', error);
-        //throw error;
+        console.error(`Unable to load icon - ${name} - ${size}`, error);
       } finally {
         setLoading(false);
       }
-    };
-    importIcon();
+    })();
   }, [name, size]);
 
   if (!loading && ImportedIconRef.current) {
     const { current: ImportedIcon } = ImportedIconRef;
-    return <ImportedIcon {...rest} />;
+    return <ImportedIcon title={title || name} {...rest} />;
   }
 
   return null;
 };
 
-export default IconLoader;
+export default memo(IconLoader);
